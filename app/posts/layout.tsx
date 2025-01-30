@@ -1,7 +1,6 @@
-import "@/app/globals.css";
 import Footer from "@/app/components/Footer";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function PostLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -11,10 +10,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Page Wrapper */}
         <div className="max-w-3xl mx-auto p-8 min-h-screen flex flex-col">
           
-          {/* Blog Header */}
-          <header className="mb-12 text-center">
-            <h1 className="text-5xl font-bold tracking-tight text-gray-800">
-              The
+          {/* Minimal Header */}
+          <header className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-800">The
               <span className="text-blue-900"> C</span>
               <span className="text-blue-800">r</span>
               <span className="text-blue-700">e</span>
@@ -23,11 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="text-blue-400">i</span>
               <span className="text-blue-400">v</span>
               <span className="text-blue-300">e </span>
-              Developer
-            </h1>
-            <p className="text-lg text-gray-600 mt-4">
-              Thoughts on code, design, and building better software by <b>Ritul Jain</b>.
-            </p>
+              Developer</h1>
           </header>
 
           {/* Main Content */}
