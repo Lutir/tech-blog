@@ -1,9 +1,7 @@
-"use client"
-
-import { useParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { notFound } from "next/navigation";
 
 type Post = {
   id: string;
@@ -13,11 +11,11 @@ type Post = {
 };
 
 const posts: Record<string, Post> = {
-    "1": {
-        id: "1",
-      title: "Hello World",
-      date: "January 29, 2025",
-      content: `
+  "1": {
+    id: "1",
+    title: "Hello World",
+    date: "January 29, 2025",
+    content: `
   Welcome to *The Creative Developer*!  
   
   If you're reading this, it means the blog is live, and the journey has officially begun. 🎉  
@@ -35,7 +33,6 @@ const posts: Record<string, Post> = {
   ### What’s Next?  
   I’ll be posting regularly about **engineering challenges, best practices, and interesting discoveries**.  
 
-
   If you're a fellow developer, I hope you find value in these posts.  
   Let’s learn, build, and explore together!  
   
@@ -43,16 +40,23 @@ const posts: Record<string, Post> = {
   
   ---
   `,
-    },
-  };
-  
+  },
+};
 
-export default function PostPage({ params }: { params: { id: string } }) {
-  const post = posts[params.id];
-
-  if (!post) {
-    return <p className="text-center text-gray-500">Post not found.</p>;
+// ✅ Ensure Next.js pre-renders the blog posts correctly
+export async function generateStaticParams() {
+    return Object.keys(posts).map((id) => ({ id }));
   }
+  
+  // ✅ Use `async` function since `params` is now a `Promise`
+  export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
+    const resolvedParams = await params; // ✅ Await params to get the actual value
+  
+    if (!resolvedParams?.id || !posts[resolvedParams.id]) {
+      return notFound(); // ✅ Show 404 if post is missing
+    }
+  
+    const post = posts[resolvedParams.id];
 
   return (
     <article className="max-w-prose mx-auto py-12 px-6 md:px-0 font-serif text-gray-900 leading-relaxed">

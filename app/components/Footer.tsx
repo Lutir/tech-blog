@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 export default function Footer() {
   return (
     <footer className="mt-16 py-10 bg-[#f7ede6] text-gray-900 font-serif">
